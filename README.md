@@ -37,3 +37,4 @@ Each team will start with the following state:
 * May the odds be forever in your favor
 
 
+# SupplierA
