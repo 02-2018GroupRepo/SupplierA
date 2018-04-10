@@ -1,5 +1,6 @@
 package bootcamp.service;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import bootcamp.dao.InventoryDao;
 import bootcamp.dao.ProductDao;
 import bootcamp.model.inventory.Inventory;
+import bootcamp.model.inventory.InventoryItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,19 +35,26 @@ public class InventoryService {
 	
 	public void receiveInventory(List<Product> products) {
 //		inventoryList.addAll(products);
+		BigDecimal ourPrice;
 		for(Product p: products){
 			productService.updateProductWholesalePrice(p);
 			int quantity = inventoryDao.getInventoryItemById(p).getNumber_available();
 			if(quantity>0){
-				inventoryDao.updateInventory(p, quantity);
+				ourPrice = inventoryDao.updateInventory(p, quantity);
+				productService.updateProductRetailPrice(p, ourPrice);
 			}else{
-				inventoryDao.addInventory(p);
+				ourPrice = inventoryDao.addInventory(p);
+				productService.updateProductRetailPrice(p, ourPrice);
 			}
 		}
 	}
 
 	public Inventory getInventory(){
 		return inventoryDao.getInventory();
+	}
+
+	public InventoryItem getInventoryItemById(Integer id){
+		return inventoryDao.getInventoryItemById(id);
 	}
 	
 	@Scheduled(cron = "${inventory.status.schedule}")

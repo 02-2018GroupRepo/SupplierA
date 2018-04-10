@@ -2,12 +2,13 @@ package bootcamp.controller;
 
 import java.util.List;
 
+import bootcamp.model.invoice.InvoiceItem;
+import bootcamp.model.order.Order;
+import bootcamp.service.InvoiceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import bootcamp.model.products.Product;
 import bootcamp.service.ProductService;
@@ -17,6 +18,9 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private InvoiceService invoice;
+
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@RequestMapping("/product/{id}")
@@ -25,9 +29,10 @@ public class ProductController {
     	return productService.getProductById(id); 
     }
 	
-	@RequestMapping("/product")
-	public List<Product> getProductList(){
-		return productService.getProducts();
-	}
+//	@RequestMapping(name = "/order", method = RequestMethod.POST)
+//	public InvoiceItem getProductList(@RequestBody Order order){
+//		return invoice.createInvoice(order);
+//		}
 	
 }
+

@@ -1,7 +1,9 @@
 package bootcamp.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import bootcamp.model.order.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -35,6 +37,11 @@ public class ProductDao {
 
 	public void updateProductWholesalePrice(Product product) {
 		String sql = "update PRODUCT set wholesale_price = " + product.getWholesale_price() + "where id = " + product.getId();
+		jdbcTemplate.update(sql);
+	}
+
+	public void updateProductRetailPrice(Product p, BigDecimal ourPrice){
+		String sql = "update PRODUCT set retail_price = " + ourPrice + " where id = " + p.getId();
 		jdbcTemplate.update(sql);
 	}
 	

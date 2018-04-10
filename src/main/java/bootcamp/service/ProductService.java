@@ -1,7 +1,10 @@
 package bootcamp.service;
 
+import bootcamp.model.order.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -40,8 +43,11 @@ public class ProductService {
 		return dao.getProducts();
 	}
 
-	public void updateProductWholesalePrice(Product product){
-		dao.updateProductWholesalePrice(product);
+	public void updateProductWholesalePrice(Product product){ dao.updateProductWholesalePrice(product);}
+
+	public void updateProductRetailPrice(Product p, BigDecimal ourPrice){
+		dao.updateProductRetailPrice(p, ourPrice);
+
 	}
 	
 	@Scheduled(cron = "${product.status.schedule}")
