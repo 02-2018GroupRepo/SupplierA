@@ -8,5 +8,6 @@ CREATE TABLE product (
 
 CREATE TABLE inventory(
    id int NOT NULL,
-   number_available int NOT NULL
+   number_available int NOT NULL,
+   our_price decimal(20,2) NULL
  );

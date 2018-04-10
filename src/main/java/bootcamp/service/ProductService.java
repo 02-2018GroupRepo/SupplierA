@@ -39,6 +39,10 @@ public class ProductService {
 	public List<Product> getProducts() {
 		return dao.getProducts();
 	}
+
+	public void updateProductWholesalePrice(Product product){
+		dao.updateProductWholesalePrice(product);
+	}
 	
 	@Scheduled(cron = "${product.status.schedule}")
     public void productStatus() {

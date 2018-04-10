@@ -32,6 +32,11 @@ public class ProductDao {
 	public Product getProductById(Integer id) {
 		return jdbcTemplate.queryForObject(GET_PRODUCT_BY_ID_SQL, new Object[] {id}, new BeanPropertyRowMapper<>(Product.class));
 	}
+
+	public void updateProductWholesalePrice(Product product) {
+		String sql = "update PRODUCT set wholesale_price = " + product.getWholesale_price() + "where id = " + product.getId();
+		jdbcTemplate.update(sql);
+	}
 	
 	public List<String> getListOfThings(){
 		return listOfThings;
