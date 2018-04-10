@@ -9,7 +9,7 @@ public class InventoryItem {
 
     int id;
     int number_available;
-    BigDecimal our_price;
+    BigDecimal retail_price;
 
     public InventoryItem(){}
 
@@ -29,12 +29,12 @@ public class InventoryItem {
         this.number_available = number_available;
     }
 
-    public BigDecimal getOur_price() {
-        return our_price;
+    public BigDecimal getRetail_price() {
+        return retail_price;
     }
 
-    public void setOur_price(BigDecimal our_price) {
-        this.our_price = our_price;
+    public void setRetail_price(BigDecimal retail_price) {
+        this.retail_price = retail_price;
     }
 
 

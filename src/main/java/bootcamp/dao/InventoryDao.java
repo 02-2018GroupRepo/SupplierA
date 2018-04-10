@@ -33,22 +33,32 @@ public class InventoryDao {
     }
 
     public Inventory getInventory(){
-        String sql = "SELECT * FROM INVENTORY";
+        String sql = "SELECT * FROM INVENTORY" ;
         List<InventoryItem> inventoryList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(InventoryItem.class));
         inventory = new Inventory(inventoryList);
         return inventory;
     }
 
-    public void updateInventory(Product product, int numberAvailable) {
-        //todo add new our price method
-        String sql = "update INVENTORY set number_available = " + numberAvailable + "where id = " + product.getId();
-        jdbcTemplate.update(sql);
+    public InventoryItem getInventoryItemById(Integer id){
+        String sql = "SELECT * FROM INVENTORY where id = " + id;
+        List<InventoryItem> item = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(InventoryItem.class));
+        return item.get(0);
     }
 
-    public void addInventory(Product product){
+    public BigDecimal updateInventory(Product product, int numberAvailable) {
+        //todo add new our price method
+        ourPrice = price.setOurPrice(product.getWholesale_price()); ///this needs to be changed
+
+        String sql = "update INVENTORY set number_available = " + numberAvailable + "where id = " + product.getId();
+        jdbcTemplate.update(sql);
+        return ourPrice; // this needs to be changed
+    }
+
+    public BigDecimal addInventory(Product product){
         ourPrice = price.setOurPrice(product.getWholesale_price());
         String sql = "INSERT into INVENTORY values (?,?,?)";
         jdbcTemplate.update(sql, new Object[] {product.getId(), 1, ourPrice});
+        return ourPrice;
     }
 }
 

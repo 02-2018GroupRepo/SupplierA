@@ -3,6 +3,8 @@ package bootcamp.service;
 import bootcamp.model.finance.Finance;
 import bootcamp.model.invoice.Invoice;
 import bootcamp.model.invoice.InvoiceItem;
+import bootcamp.model.order.Order;
+import bootcamp.model.products.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,12 @@ public class InvoiceService {
 
     @Autowired
     private Finance finance;
+
+    @Autowired
+    private InventoryService inventoryService;
+
+    @Autowired
+    private ProductService productService;
 //    private Finance finance = new Finance();
 
     public BigDecimal payInvoice(Invoice invoice){
@@ -32,5 +40,13 @@ public class InvoiceService {
 //        finance.setOperatingCash(gb);
         System.out.println(finance.getOperatingCash());
         return invoiceTotal;
+    }
+
+
+    public InvoiceItem createInvoice(Order order){
+        int count = order.getQuantity();
+        Product product = productService.getProductById(order.getId());
+        InvoiceItem invoice = new InvoiceItem(product, count);
+        return invoice;
     }
 }

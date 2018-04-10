@@ -28,6 +28,10 @@ public class Invoice {
 
 	}
 
+	public void setListOfInvoiceItems(List<InvoiceItem> items){
+		this.items = items;
+	}
+
 
 	
 }
