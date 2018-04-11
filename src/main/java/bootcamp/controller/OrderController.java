@@ -1,6 +1,7 @@
 package bootcamp.controller;
 
 
+import bootcamp.model.Payment;
 import bootcamp.model.invoice.InvoiceItem;
 import bootcamp.model.order.Order;
 import bootcamp.service.InvoiceService;
@@ -23,6 +24,12 @@ public class OrderController {
         public InvoiceItem receiveOrder(@RequestBody Order order) {
             log.debug("Receiving orders");
             return invoiceService.createInvoice(order);
+        }
+
+        @RequestMapping(value = "/payment", method = RequestMethod.POST)
+        public Boolean receivePayment(@RequestBody Payment payment){
+            //some method that checks if payment is correct
+            return true;
         }
 
         // used for testing with order json format

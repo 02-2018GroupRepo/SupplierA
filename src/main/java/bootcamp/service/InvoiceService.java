@@ -1,5 +1,7 @@
 package bootcamp.service;
 
+import bootcamp.model.InvoiceList;
+import bootcamp.model.Payment;
 import bootcamp.model.finance.Finance;
 import bootcamp.model.invoice.Invoice;
 import bootcamp.model.invoice.InvoiceItem;
@@ -23,6 +25,9 @@ public class InvoiceService {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private InvoiceList invoiceList;
 //    private Finance finance = new Finance();
 
     public BigDecimal payInvoice(Invoice invoice){
@@ -44,9 +49,19 @@ public class InvoiceService {
 
 
     public InvoiceItem createInvoice(Order order){
+        int invoiceId = invoiceList.invoiceIdCounter();
         int count = order.getQuantity();
         Product product = productService.getProductById(order.getId());
-        InvoiceItem invoice = new InvoiceItem(product, count);
+        InvoiceItem invoice = new InvoiceItem(invoiceId, product, count);
+        invoiceList.addInvoiceToList(invoice);
         return invoice;
     }
+
+//    public Boolean checkPayment (Payment payment){
+//        BigDecimal paymentFromVendor = payment.getPaymentForProduct();
+//        int invoiceId = payment.getInvoiceId();
+//        BigDecimal invoicePayment = invoiceList.getInvoiceTotalById(int invoiceId);
+//
+//        if(paymentFromVendor == )
+//    }
 }

@@ -8,10 +8,13 @@ import java.util.List;
 @Component
 public class Invoice {
 
-	int id;
+
+	int id = 0;
 	List<InvoiceItem> items;
 
 	public Invoice(){}
+
+
 
 	public int getId() {
 		return id;
@@ -28,10 +31,5 @@ public class Invoice {
 
 	}
 
-	public void setListOfInvoiceItems(List<InvoiceItem> items){
-		this.items = items;
-	}
 
-
-	
 }
