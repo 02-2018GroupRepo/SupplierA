@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+
 @RestController
 public class OrderController {
 
@@ -25,22 +27,31 @@ public class OrderController {
             log.debug("Receiving orders");
             return invoiceService.createInvoice(order);
         }
-
+//TEST in postman**********************************
         @RequestMapping(value = "/payment", method = RequestMethod.POST)
         public Boolean receivePayment(@RequestBody Payment payment){
-            //some method that checks if payment is correct
-            return true;
+            return invoiceService.checkPayment(payment);
+
         }
 
-        // used for testing with order json format
-//        @RequestMapping(name = "/getorder")
-//        public Order getOrder(){
-//            Order order = new Order();
-//            order.setId(1);
-//            order.setQuantity(2);
-//            return order;
-//
-//    }
+    @RequestMapping(name = "/getPayment")
+        public Payment getPayment(){
+            Payment payment = new Payment();
+        payment.setInvoiceId(1);
+        payment.setPaymentForProduct(BigDecimal.valueOf(2.00));
+            return payment;
+
+    }
+
+         //used for testing with order json format
+        @RequestMapping(value = "/getorder")
+        public Order getOrder(){
+            Order order = new Order();
+            order.setId(1);
+            order.setQuantity(2);
+            return order;
+
+    }
 
 
 }

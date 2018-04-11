@@ -57,11 +57,16 @@ public class InvoiceService {
         return invoice;
     }
 
-//    public Boolean checkPayment (Payment payment){
-//        BigDecimal paymentFromVendor = payment.getPaymentForProduct();
-//        int invoiceId = payment.getInvoiceId();
-//        BigDecimal invoicePayment = invoiceList.getInvoiceTotalById(int invoiceId);
-//
-//        if(paymentFromVendor == )
-//    }
+    public Boolean checkPayment (Payment payment){
+        BigDecimal paymentFromVendor = payment.getPaymentForProduct();
+        int invoiceId = payment.getInvoiceId();
+        BigDecimal invoicePayment = invoiceList.getInvoiceTotalById(invoiceId);
+
+        if(paymentFromVendor == invoicePayment){
+            return true;
+            //AND ADD TOTAL TO OUR TOTAL CASH VALUE
+        }else{
+            return false;
+        }
+    }
 }
