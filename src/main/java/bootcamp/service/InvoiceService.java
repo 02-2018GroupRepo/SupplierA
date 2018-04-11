@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-//@Service//Component?
 @Component
 public class InvoiceService {
 
@@ -23,22 +22,14 @@ public class InvoiceService {
 
     @Autowired
     private ProductService productService;
-//    private Finance finance = new Finance();
 
     public BigDecimal payInvoice(Invoice invoice){
-
         BigDecimal invoiceTotal = new BigDecimal(0.00);
-
         for(InvoiceItem item : invoice.getItems()){
             BigDecimal bigCount = new BigDecimal(item.getCount());
             invoiceTotal = invoiceTotal.add(item.getProduct().getWholesale_price().multiply(bigCount)); //addition between invoicetotal and the price of each item
         }
-
-        //subtract invoicetotal from opperatingcash
-//        BigDecimal gb = finance.getOperatingCash();
-//        finance.setOperatingCash(finance.getOperatingCash().subtract(invoiceTotal));
-//        finance.setOperatingCash(gb);
-        System.out.println(finance.getOperatingCash());
+        finance.setOperatingCash(finance.getOperatingCash().subtract(invoiceTotal));
         return invoiceTotal;
     }
 

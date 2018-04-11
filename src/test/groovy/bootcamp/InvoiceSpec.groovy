@@ -13,8 +13,8 @@ class InvoiceSpec extends Specification {
         //Finance.operatingCash = 5000.00;
 
         Finance finance = new Finance();
-        and: "an invoice"
 
+        and: "an invoice"
         //making a fake product
         Product fakeProduct = new Product();
         BigDecimal newValue = new BigDecimal(3) //each item costs $3
@@ -39,4 +39,5 @@ class InvoiceSpec extends Specification {
         newOperatingCash == new BigDecimal(4985);
 
     }
+
 }
