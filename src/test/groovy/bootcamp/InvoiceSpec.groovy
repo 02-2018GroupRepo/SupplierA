@@ -1,3 +1,4 @@
+import bootcamp.model.finance.Finance
 import bootcamp.model.invoice.Invoice
 import bootcamp.model.invoice.InvoiceItem
 import bootcamp.model.products.Product
@@ -10,6 +11,8 @@ class InvoiceSpec extends Specification {
         given:"the total amount of cash"
         BigDecimal operatingCash = new BigDecimal(5000.00);
         //Finance.operatingCash = 5000.00;
+
+        Finance finance = new Finance();
         and: "an invoice"
 
         //making a fake product
@@ -24,8 +27,10 @@ class InvoiceSpec extends Specification {
 
         //making a fake invoice
         Invoice invoice = new Invoice(1, fakeListOfItems);
+
         when:"an invoice is paid for"
         InvoiceService invoiceService = new InvoiceService();
+        invoiceService.finance = finance;
         BigDecimal invoiceCost = invoiceService.payInvoice(invoice);
         BigDecimal newOperatingCash = operatingCash.subtract(invoiceCost);
 
