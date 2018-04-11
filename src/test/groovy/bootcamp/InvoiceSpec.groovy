@@ -1,3 +1,5 @@
+package bootcamp;
+
 import bootcamp.model.finance.Finance
 import bootcamp.model.invoice.Invoice
 import bootcamp.model.invoice.InvoiceItem
