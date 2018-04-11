@@ -9,6 +9,7 @@ import bootcamp.dao.InventoryDao;
 import bootcamp.dao.ProductDao;
 import bootcamp.model.inventory.Inventory;
 import bootcamp.model.inventory.InventoryItem;
+import bootcamp.model.order.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,15 @@ public class InventoryService {
 		}
 	}
 
+//add remove function
+	public void removeFromInventory(Order order){
+		int id = order.getId();
+		int quantityToRemove = order.getQuantity();
+		int existingQuantity = getInventoryItemById(id).getNumber_available();
+		int newQuantity = existingQuantity - quantityToRemove;
+		inventoryDao.removeFromInventory(id, newQuantity);
+	}
+
 	public Inventory getInventory(){
 		return inventoryDao.getInventory();
 	}
@@ -62,4 +72,15 @@ public class InventoryService {
         log.info("Checking on inventory status at {}", dateFormat.format(new Date()));
         log.debug("Debug goes here");
     }
+	
+	public double getInventoryValue() {
+		Inventory inventoryList = inventoryDao.getInventory();
+		double total = 0.00;
+		for(InventoryItem item: inventoryList.getItems()) {
+			total += item.getRetail_price().doubleValue();
+			log.info("total = " + total);
+		}
+		
+		return total;
+	}
 }
