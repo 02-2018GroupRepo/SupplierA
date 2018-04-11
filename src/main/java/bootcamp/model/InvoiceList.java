@@ -1,5 +1,6 @@
 package bootcamp.model;
 
+import bootcamp.model.invoice.Invoice;
 import bootcamp.model.invoice.InvoiceItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class InvoiceList {
 
     private int invoiceIdTracker;
 
-    private List<InvoiceItem> invoiceList = new ArrayList<>();
+    private List<Invoice> invoiceList = new ArrayList<>();
 
     public int invoiceIdCounter(){
         int newInvoiceId = this.invoiceIdTracker + 1;
@@ -23,13 +24,13 @@ public class InvoiceList {
         return newInvoiceId;
     }
 
-    public void addInvoiceToList(InvoiceItem item){
+    public void addInvoiceToList(Invoice item){
         invoiceList.add(item);
     }
 
     public BigDecimal getInvoiceTotalById(int invoiceId) {
         BigDecimal total = null;
-        for (InvoiceItem item : invoiceList) {
+        for (Invoice item : invoiceList) {
             if (invoiceId == item.getInvoiceId()) {
                 BigDecimal price = item.getProduct().getRetail_price();
 //                double price = bd.doubleValue();

@@ -9,6 +9,7 @@ import bootcamp.dao.InventoryDao;
 import bootcamp.dao.ProductDao;
 import bootcamp.model.inventory.Inventory;
 import bootcamp.model.inventory.InventoryItem;
+import bootcamp.model.order.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,11 @@ public class InventoryService {
 			}
 		}
 	}
+
+//add remove function
+//	public void removeFromInventory(Order order){
+//		inventoryDao.removeFromInventory(int id, int quantityToRemove)
+//	}
 
 	public Inventory getInventory(){
 		return inventoryDao.getInventory();

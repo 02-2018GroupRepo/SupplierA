@@ -7,6 +7,8 @@ import bootcamp.model.invoice.Invoice;
 import bootcamp.model.invoice.InvoiceItem;
 import bootcamp.model.order.Order;
 import bootcamp.model.products.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,8 @@ import java.math.BigDecimal;
 
 @Component
 public class InvoiceService {
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private Finance finance;
@@ -35,12 +39,13 @@ public class InvoiceService {
     }
 
 
-    public InvoiceItem createInvoice(Order order){
+    public Invoice createInvoice(Order order){
         int invoiceId = invoiceList.invoiceIdCounter();
         int count = order.getQuantity();
         Product product = productService.getProductById(order.getId());
-        InvoiceItem invoice = new InvoiceItem(invoiceId, product, count);
+        Invoice invoice = new Invoice(invoiceId, product, count);
         invoiceList.addInvoiceToList(invoice);
+       // inventoryService.removeFromInventory(order);
         return invoice;
     }
 
@@ -50,8 +55,8 @@ public class InvoiceService {
         BigDecimal invoicePayment = invoiceList.getInvoiceTotalById(invoiceId);
 
         if(paymentFromVendor.equals(invoicePayment)){
+            addMoneyToOperatingCash(paymentFromVendor);
             return true;
-            //AND ADD TOTAL TO OUR TOTAL CASH VALUE
         }else{
             return false;
         }
@@ -67,12 +72,16 @@ public class InvoiceService {
     }
 
     public BigDecimal getInvoiceTotal(Invoice invoice){
-        BigDecimal invoiceTotal = new BigDecimal(0.00);
+        //BigDecimal invoiceTotal = new BigDecimal(0.00);
+        double invoiceTotal = 0;
         for(InvoiceItem item : invoice.getItems()){
-            BigDecimal bigCount = new BigDecimal(item.getCount());
-            invoiceTotal = invoiceTotal.add(item.getProduct().getWholesale_price().multiply(bigCount)); //addition between invoicetotal and the price of each item
+            log.info("invoice price = " + item.getProduct().getWholesale_price());
+            log.info("invoice product = " + item.getProduct());
+
+            invoiceTotal += item.getCount() * item.getProduct().getWholesale_price().doubleValue();
+            log.info("invoice total = " + invoiceTotal);
         }
-        return invoiceTotal;
+        return new BigDecimal(invoiceTotal);
     }
 
 }
