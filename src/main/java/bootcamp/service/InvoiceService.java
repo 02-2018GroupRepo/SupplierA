@@ -62,7 +62,7 @@ public class InvoiceService {
         int invoiceId = payment.getInvoiceId();
         BigDecimal invoicePayment = invoiceList.getInvoiceTotalById(invoiceId);
 
-        if(paymentFromVendor == invoicePayment){
+        if(paymentFromVendor.equals(invoicePayment)){
             return true;
             //AND ADD TOTAL TO OUR TOTAL CASH VALUE
         }else{
