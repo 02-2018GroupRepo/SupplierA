@@ -40,4 +40,7 @@ public class InvoiceService {
         InvoiceItem invoice = new InvoiceItem(product, count);
         return invoice;
     }
+    public void addMoneyToOperatingCash(BigDecimal cashToAdd){
+        finance.setOperatingCash(finance.getOperatingCash().add(cashToAdd));
+    }
 }
