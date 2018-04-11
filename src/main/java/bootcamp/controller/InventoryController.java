@@ -29,9 +29,10 @@ public class InventoryController {
 		return inventoryService.getInventory();
 	}
 	
-	@RequestMapping(value = "inventory/receive", method=RequestMethod.POST)
+	@RequestMapping(value = "/receive/inventory", method=RequestMethod.POST)
     public void getProduct(@RequestBody List<Product> products) {
-		log.debug("Receiving products");
+		log.info("Receiving products");
+//		log.info(products.toString());
     	inventoryService.receiveInventory(products); 
     }
 	

@@ -27,9 +27,10 @@ public class InventoryDao {
     private BigDecimal ourPrice;
 
     public InventoryItem getInventoryItemById(Product product){
-        String sql = "SELECT number_available FROM INVENTORY where id = ?" ;
-        int id = product.getId();
-        return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<>(InventoryItem.class));
+        String sql = "SELECT * FROM INVENTORY where id = " + product.getId() ;
+        System.out.println(sql);
+        List<InventoryItem> item =jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(InventoryItem.class));
+        return item.get(0);
     }
 
     public Inventory getInventory(){
@@ -59,6 +60,12 @@ public class InventoryDao {
         String sql = "INSERT into INVENTORY values (?,?,?)";
         jdbcTemplate.update(sql, new Object[] {product.getId(), 1, ourPrice});
         return ourPrice;
+    }
+    
+    public void removeFromInventory(int id, int quantity) {
+    	 String sql = "update INVENTORY set number_available = " + quantity + "where id = " + id;
+         jdbcTemplate.update(sql);
+    	
     }
 }
 

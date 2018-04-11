@@ -36,7 +36,7 @@ public class OrderController {
 
         }
 
-        @RequestMapping (value = "invoice/receive", method = RequestMethod.POST)
+        @RequestMapping (value = "/invoice/receive", method = RequestMethod.POST)
         public void receiveInvoice(@RequestBody Invoice invoice){
             BigDecimal total = invoiceService.payInvoice(invoice);
             Payment payment = new Payment();
@@ -48,14 +48,14 @@ public class OrderController {
 
 
 
-//    @RequestMapping(name = "/getPayment")
-//        public Payment getPayment(){
-//            Payment payment = new Payment();
-//        payment.setInvoiceId(1);
-//        payment.setPaymentForProduct(BigDecimal.valueOf(2.00));
-//            return payment;
-//
-//    }
+    @RequestMapping(name = "/getPayment")
+        public Payment getPayment(){
+            Payment payment = new Payment();
+        payment.setInvoiceId(1);
+        payment.setPaymentForProduct(BigDecimal.valueOf(2.00));
+            return payment;
+
+    }
 //
 //         //used for testing with order json format
 //        @RequestMapping(value = "/getorder")

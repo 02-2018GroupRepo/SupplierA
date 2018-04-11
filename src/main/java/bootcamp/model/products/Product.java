@@ -66,5 +66,6 @@ public class Product {
 	    }
 	    this.properties.put(name, value);
 	}
+	
 
 }
