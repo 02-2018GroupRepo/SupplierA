@@ -11,6 +11,11 @@ public class Order {
     public Order() {
 
     }
+    
+    public Order(int id, int quantity) {
+    	this.id = id;
+    	this.quantity = quantity;
+    }
 
     public int getId() {
         return id;

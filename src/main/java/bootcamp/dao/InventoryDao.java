@@ -46,13 +46,13 @@ public class InventoryDao {
         return item.get(0);
     }
 
-    public BigDecimal updateInventory(Product product, int numberAvailable) {
+    public void updateInventory(Product product, int numberAvailable) {
         //todo add new our price method
-        ourPrice = price.setOurPrice(product.getWholesale_price()); ///this needs to be changed
+        //ourPrice = price.setOurPrice(product.getWholesale_price()); ///this needs to be changed
 
         String sql = "update INVENTORY set number_available = " + numberAvailable + "where id = " + product.getId();
         jdbcTemplate.update(sql);
-        return ourPrice; // this needs to be changed
+        //return ourPrice; // this needs to be changed
     }
 
     public BigDecimal addInventory(Product product){

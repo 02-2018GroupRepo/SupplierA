@@ -50,16 +50,18 @@ public class InvoiceService {
     }
 
     public Boolean checkPayment (Payment payment){
-        BigDecimal paymentFromVendor = payment.getPaymentForProduct();
+        double paymentFromVendor = payment.getPaymentForProduct().doubleValue();
         int invoiceId = payment.getInvoiceId();
-        BigDecimal invoicePayment = invoiceList.getInvoiceTotalById(invoiceId);
+        BigDecimal invoiceTotal = invoiceList.getInvoiceTotalById(invoiceId);
+        double invoicePrice = invoiceTotal.doubleValue();
+//        BigDecimal invoicePayment = invoiceList.getInvoiceTotalById(invoiceId);
 
-        if(paymentFromVendor.equals(invoicePayment)){
-            addMoneyToOperatingCash(paymentFromVendor);
+        if(paymentFromVendor >= invoicePrice){
+            addMoneyToOperatingCash(BigDecimal.valueOf(paymentFromVendor));
             return true;
         }else{
         	//quick fix for stock test
-            addMoneyToOperatingCash(paymentFromVendor);
+            addMoneyToOperatingCash(BigDecimal.valueOf(paymentFromVendor));
 
             return false;
         }

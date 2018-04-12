@@ -48,7 +48,7 @@ public class OrderController {
 
 
 
-    @RequestMapping(name = "/getPayment")
+    @RequestMapping(value = "/retrievePayment")
         public Payment getPayment(){
             Payment payment = new Payment();
         payment.setInvoiceId(1);
@@ -56,16 +56,15 @@ public class OrderController {
             return payment;
 
     }
-//
-//         //used for testing with order json format
-//        @RequestMapping(value = "/getorder")
-//        public Order getOrder(){
-//            Order order = new Order();
-//            order.setId(1);
-//            order.setQuantity(2);
-//            return order;
-//
-//    }
+
+         //used for testing with order json format
+    @RequestMapping(value = "/getorder")
+    public Order getOrder() {
+        Order order = new Order(1, 3);
+//        order.setId(1);
+//        order.setQuantity(2);
+        return order;
+    }
 
 
 }

@@ -38,6 +38,7 @@ public class InvoiceList {
                 BigDecimal quant = new BigDecimal(quantity);
                 total = price.multiply(quant);
 //                BigDecimal totalPrice = new BigDecimal(total, MathContext.DECIMAL64);
+            
             }
         }
         return total;
