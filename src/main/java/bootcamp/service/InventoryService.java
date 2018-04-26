@@ -41,8 +41,8 @@ public class InventoryService {
 			productService.updateProductWholesalePrice(p);
 			int quantity = inventoryDao.getInventoryItemById(p).getNumber_available();
 			if(quantity>0){
-				ourPrice = inventoryDao.updateInventory(p, quantity);
-				productService.updateProductRetailPrice(p, ourPrice);
+				inventoryDao.updateInventory(p, quantity);
+				//productService.updateProductRetailPrice(p, ourPrice);
 			}else{
 				ourPrice = inventoryDao.addInventory(p);
 				productService.updateProductRetailPrice(p, ourPrice);
@@ -77,7 +77,7 @@ public class InventoryService {
 		Inventory inventoryList = inventoryDao.getInventory();
 		double total = 0.00;
 		for(InventoryItem item: inventoryList.getItems()) {
-			total += item.getRetail_price().doubleValue();
+			total += (item.getRetail_price().doubleValue() * item.getNumber_available());
 			log.info("total = " + total);
 		}
 		

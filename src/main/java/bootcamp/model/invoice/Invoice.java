@@ -16,10 +16,6 @@ public class Invoice {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public void setItems(List<InvoiceItem> items) {
 		this.items = items;
 	}
