@@ -1,6 +1,6 @@
 package bootcamp.service;
 
-import bootcamp.model.InvoiceList;
+import bootcamp.model.invoice.InvoiceList;
 import bootcamp.model.Payment;
 import bootcamp.model.finance.Finance;
 import bootcamp.model.invoice.Invoice;
@@ -41,9 +41,9 @@ public class InvoiceService {
 
     public Invoice createInvoice(Order order){
         int invoiceId = invoiceList.invoiceIdCounter();
-        int count = order.getQuantity();
+        int quantityOrdered = order.getQuantity();
         Product product = productService.getProductById(order.getId());
-        Invoice invoice = new Invoice(invoiceId, product, count);
+        Invoice invoice = new Invoice(invoiceId, product, quantityOrdered);
         invoiceList.addInvoiceToList(invoice);
         inventoryService.removeFromInventory(order);
         return invoice;
@@ -60,7 +60,7 @@ public class InvoiceService {
             addMoneyToOperatingCash(BigDecimal.valueOf(paymentFromVendor));
             return true;
         }else{
-        	//quick fix for stock test
+        	//TODO add inventory back if not enough money received
             addMoneyToOperatingCash(BigDecimal.valueOf(paymentFromVendor));
 
             return false;

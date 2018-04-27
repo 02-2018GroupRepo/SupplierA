@@ -1,7 +1,6 @@
 package bootcamp
 
-import bootcamp.model.InvoiceList
-import bootcamp.model.invoice.Invoice
+import bootcamp.model.invoice.InvoiceList
 import spock.lang.Specification
 
 

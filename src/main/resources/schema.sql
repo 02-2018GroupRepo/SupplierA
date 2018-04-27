@@ -7,7 +7,7 @@ CREATE TABLE product (
 );
 
 CREATE TABLE inventory(
-   id int NOT NULL,
+   id int NULL,
    number_available int NOT NULL,
    retail_price decimal(20,2)
  );

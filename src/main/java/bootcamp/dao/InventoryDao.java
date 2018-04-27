@@ -1,6 +1,6 @@
 package bootcamp.dao;
 
-import bootcamp.model.Price;
+import bootcamp.model.products.Price;
 import bootcamp.model.inventory.Inventory;
 import bootcamp.model.inventory.InventoryItem;
 import bootcamp.model.products.Product;
@@ -49,14 +49,14 @@ public class InventoryDao {
     public void updateInventory(Product product, int numberAvailable) {
         //todo add new our price method
         //ourPrice = price.setOurPrice(product.getWholesale_price()); ///this needs to be changed
-
-        String sql = "update INVENTORY set number_available = " + numberAvailable + "where id = " + product.getId();
+        int newQuantity = numberAvailable + 1;
+        String sql = "update INVENTORY set number_available = " + newQuantity + "where id = " + product.getId();
         jdbcTemplate.update(sql);
         //return ourPrice; // this needs to be changed
     }
 
     public BigDecimal addInventory(Product product){
-        ourPrice = price.setOurPrice(product.getWholesale_price());
+        ourPrice = price.calculateOurPrice(product.getWholesale_price());
         String sql = "INSERT into INVENTORY values (?,?,?)";
         jdbcTemplate.update(sql, new Object[] {product.getId(), 1, ourPrice});
         return ourPrice;
@@ -67,5 +67,6 @@ public class InventoryDao {
          jdbcTemplate.update(sql);
     	
     }
+
 }
 

@@ -1,22 +1,20 @@
 package bootcamp.service;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import bootcamp.dao.InventoryDao;
-import bootcamp.dao.ProductDao;
 import bootcamp.model.inventory.Inventory;
 import bootcamp.model.inventory.InventoryItem;
 import bootcamp.model.order.Order;
+import bootcamp.model.products.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import bootcamp.model.products.Product;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Component
 public class InventoryService {
@@ -39,11 +37,14 @@ public class InventoryService {
 		BigDecimal ourPrice;
 		for(Product p: products){
 			productService.updateProductWholesalePrice(p);
-			int quantity = inventoryDao.getInventoryItemById(p).getNumber_available();
-			if(quantity>0){
+			//int quantity = inventoryDao.getInventoryItemById(p).getNumber_available();
+			//log.info("Quantity = " + quantity);
+			try{
+				int quantity = inventoryDao.getInventoryItemById(p).getNumber_available();
+				log.info("Quantity = " + quantity);
 				inventoryDao.updateInventory(p, quantity);
 				//productService.updateProductRetailPrice(p, ourPrice);
-			}else{
+			}catch (Exception e){
 				ourPrice = inventoryDao.addInventory(p);
 				productService.updateProductRetailPrice(p, ourPrice);
 			}

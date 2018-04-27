@@ -3,7 +3,6 @@ package bootcamp.controller;
 
 import bootcamp.model.Payment;
 import bootcamp.model.invoice.Invoice;
-import bootcamp.model.invoice.InvoiceItem;
 import bootcamp.model.order.Order;
 import bootcamp.service.InvoiceService;
 import org.slf4j.Logger;
@@ -33,7 +32,6 @@ public class OrderController {
         @RequestMapping(value = "/payment", method = RequestMethod.POST)
         public Boolean receivePayment(@RequestBody Payment payment){
             return invoiceService.checkPayment(payment);
-
         }
 
         @RequestMapping (value = "/invoice/receive", method = RequestMethod.POST)
@@ -47,7 +45,7 @@ public class OrderController {
         }
 
 
-
+    //for testing in Postman
     @RequestMapping(value = "/retrievePayment")
         public Payment getPayment(){
             Payment payment = new Payment();

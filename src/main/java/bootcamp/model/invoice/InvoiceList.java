@@ -1,12 +1,8 @@
-package bootcamp.model;
+package bootcamp.model.invoice;
 
-import bootcamp.model.invoice.Invoice;
-import bootcamp.model.invoice.InvoiceItem;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +10,13 @@ import java.util.List;
 public class InvoiceList {
 
 
-    private int invoiceIdTracker;
+    private int invoiceIdCount;
 
     private List<Invoice> invoiceList = new ArrayList<>();
 
     public int invoiceIdCounter(){
-        int newInvoiceId = this.invoiceIdTracker + 1;
-        this.invoiceIdTracker = newInvoiceId;
+        int newInvoiceId = this.invoiceIdCount + 1;
+        this.invoiceIdCount = newInvoiceId;
         return newInvoiceId;
     }
 
